@@ -20,6 +20,7 @@ public class SecurityConfig {
             .csrf((csrf) -> csrf
                     .ignoringRequestMatchers(new AntPathRequestMatcher("/member/login")))
 
+
             .headers((headers) -> headers
                     .addHeaderWriter(new XFrameOptionsHeaderWriter(
                             XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
