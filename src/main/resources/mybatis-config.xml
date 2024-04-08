@@ -5,5 +5,7 @@
     <typeAliases>
         <typeAlias type="com.mysite.sbb.dto.BoardDTO" alias="board"></typeAlias>
         <typeAlias type="com.mysite.sbb.dto.BoardFileDTO" alias="boardFile"></typeAlias>
+
+        <typeAlias type="com.mysite.sbb.dto.MemberDTO" alias="member"></typeAlias>
     </typeAliases>
 </configuration>

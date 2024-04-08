@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form action="/save" method="post" enctype="multipart/form-data">
+<form th:action="@{/save}"  method="post" enctype="multipart/form-data">
+    <!-- CSRF 토큰 hidden input -->
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
 
     제목: <input type="text" name="boardTitle"><br>
     작성자: <input type="text" name="boardWriter"><br>
