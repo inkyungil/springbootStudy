@@ -17,9 +17,9 @@ public class SecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 
             //.csrf((csrf) -> csrf.disable())
-            .csrf((csrf) -> csrf
-                    .ignoringRequestMatchers(new AntPathRequestMatcher("/member/login"))
-            )
+            //.csrf((csrf) -> csrf
+            //        .ignoringRequestMatchers(new AntPathRequestMatcher("/member/login"))
+            //)
 
 
             .headers((headers) -> headers
