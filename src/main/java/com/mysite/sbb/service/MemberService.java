@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-    public void save(MemberDTO memberDTO)throws IOException {
+    public void save(MemberDTO memberDTO){
         System.out.println("memberDTO = " + memberDTO);
         memberRepository.save(memberDTO);
     }
@@ -55,6 +55,7 @@ public class MemberService {
     }
 
     public String emailCheck(String memberEmail){
+
         Optional<MemberDTO> byMemberEmail = Optional.ofNullable(memberRepository.findByMemberEmail(memberEmail));
         System.out.println("memberRepository.findByMemberEmail(memberEmail) = " + memberRepository.findByMemberEmail(memberEmail));
         if(byMemberEmail.isPresent()){

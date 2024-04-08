@@ -24,7 +24,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/save")
-    public String save(@ModelAttribute MemberDTO memberDTO)  throws IOException {
+    public String save(@ModelAttribute MemberDTO memberDTO)  {
          memberService.save(memberDTO);
         return "/member/login";
     }
