@@ -5,13 +5,17 @@ import com.mysite.sbb.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-    public void save(MemberDTO memberDTO) {
+    public void save(MemberDTO memberDTO)throws IOException {
+        System.out.println("memberDTO = " + memberDTO);
+        memberRepository.save(memberDTO);
     }
 
     public MemberDTO login(MemberDTO memberDTO) {
@@ -37,4 +41,28 @@ public class MemberService {
         }
     }
 
+    public List<MemberDTO> findAll() {
+        return memberRepository.findAll();
+    }
+
+    public MemberDTO findById(Long id) {
+        return memberRepository.finById(id);
+    }
+
+
+    public void delete(Long id) {
+        memberRepository.delete(id);
+    }
+
+    public String emailCheck(String memberEmail){
+        Optional<MemberDTO> byMemberEmail = Optional.ofNullable(memberRepository.findByMemberEmail(memberEmail));
+        System.out.println("memberRepository.findByMemberEmail(memberEmail) = " + memberRepository.findByMemberEmail(memberEmail));
+        if(byMemberEmail.isPresent()){
+            //조회결과가 있다.
+            return null;
+        }else {
+            //조회결과 없다.
+            return "ok";
+        }
+    }
 }

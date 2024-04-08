@@ -4,7 +4,22 @@
 
 <mapper namespace="Member">
     <select id="findByMemberEmail" parameterType="String" resultType="member">
-        select * from member_table where MemberEmail = #{memberEmail}
+        select * from member_table where memberEmail = #{memberEmail}
     </select>
+    <insert id="save" parameterType="member">
+        insert into member_table (memberEmail, memberPassword, memberName, createdAt)  values(#{memberEmail}, #{memberPassword}, #{memberName},now() )
+    </insert>
+
+    <select id="findAll" resultType="member">
+       select  * from member_table order by 1 desc
+    </select>
+
+    <select id="findById" resultType="member" parameterType="Long">
+        select  * from member_table where id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from member_table where id = #{id}
+    </delete>
 
 </mapper>

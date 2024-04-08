@@ -5,9 +5,11 @@ import com.mysite.sbb.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,12 +24,11 @@ public class MemberController {
     }
 
     @PostMapping("/member/save")
-    public String save(@ModelAttribute MemberDTO memberDTO) {
-        System.out.println("MemberController.save");
-        System.out.println("memberDTO = " + memberDTO);
-        memberService.save(memberDTO);
+    public String save(@ModelAttribute MemberDTO memberDTO)  throws IOException {
+         memberService.save(memberDTO);
         return "/member/login";
     }
+
 
     @GetMapping("/member/login")
     public String loingForm(){
@@ -63,5 +64,49 @@ public class MemberController {
         session.invalidate();
         return "index";
     }
+
+
+
+    @GetMapping("/member/")
+    public String member_main() {
+        return "/member/index";
+    }
+
+
+    @GetMapping("/member/list")
+    public String member_list(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList" , memberDTOList);
+        System.out.println("memberDTOList = " + memberDTOList);
+
+        return "/member/list";
+    }
+    @GetMapping("/member/{id}")
+    public String findById(Model model, @PathVariable("id") Long id){
+
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member" , memberDTO);
+        return "/member/detail";
+    }
+
+    @GetMapping("/member/delete/{id}")
+    public String delete(@PathVariable("id") Long id){
+        memberService.delete(id);
+        return "redirect:/member/list";
+    }
+
+
+
+    @PostMapping("/member/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail){
+
+        String checkRequest = memberService.emailCheck(memberEmail);
+        if(checkRequest != null) {
+            return "ok";
+        }else{
+            return "no";
+        }
+    }
+
 
 }
